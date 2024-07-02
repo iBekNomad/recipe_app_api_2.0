@@ -1,5 +1,5 @@
 """
-Tests for user API.
+Tests for the user API.
 """
 from django.test import TestCase
 from django.contrib.auth import get_user_model
@@ -20,7 +20,7 @@ def create_user(**params):
 
 
 class PublicUserApiTests(TestCase):
-    """Test the public features of user API."""
+    """Test the public features of the user API."""
 
     def setUp(self):
         self.client = APIClient()
@@ -108,7 +108,7 @@ class PublicUserApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-class PrivetUserApiTests(TestCase):
+class PrivateUserApiTests(TestCase):
     """Test API requests that require authentication."""
 
     def setUp(self):
