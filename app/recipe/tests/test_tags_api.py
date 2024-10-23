@@ -31,7 +31,7 @@ def create_user(email='user@example.com', password='testpass123'):
     return get_user_model().objects.create_user(email=email, password=password)
 
 
-class PublicTagsTests(TestCase):
+class PublicTagsApiTests(TestCase):
     """Test unauthenticated API requests."""
 
     def setUp(self):
@@ -44,7 +44,7 @@ class PublicTagsTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-class PrivateTagsTests(TestCase):
+class PrivateTagsApiTests(TestCase):
     """Test authenticated API requests."""
 
     def setUp(self):
@@ -101,7 +101,7 @@ class PrivateTagsTests(TestCase):
         self.assertFalse(tags.exists())
 
     def test_filter_tags_assigned_to_recipes(self):
-        """Test listing tags to those asseigned to recipes."""
+        """Test listing tags to those assigned to recipes."""
         tag1 = Tag.objects.create(user=self.user, name='Breakfast')
         tag2 = Tag.objects.create(user=self.user, name='Lunch')
         recipe = Recipe.objects.create(

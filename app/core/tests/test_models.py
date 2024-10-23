@@ -35,7 +35,7 @@ class ModelTests(TestCase):
         sample_emails = [
             ['test1@EXAMPLE.com', 'test1@example.com'],
             ['Test2@Example.com', 'Test2@example.com'],
-            ['TEST3@EXAMPLE.COM', 'TEST3@example.com'],
+            ['TEST3@EXAMPLE.com', 'TEST3@example.com'],
             ['test4@example.COM', 'test4@example.com'],
         ]
         for email, expected in sample_emails:
@@ -61,14 +61,14 @@ class ModelTests(TestCase):
         """Test creating a recipe is successful."""
         user = get_user_model().objects.create_user(
             'test@example.com',
-            'tespass123',
+            'testpass123',
         )
         recipe = models.Recipe.objects.create(
             user=user,
-            title='Sample recipe name.',
+            title='Sample recipe name',
             time_minutes=5,
             price=Decimal('5.50'),
-            description='Sample recipe description.'
+            description='Sample recipe description.',
         )
 
         self.assertEqual(str(recipe), recipe.title)
@@ -85,7 +85,7 @@ class ModelTests(TestCase):
         user = create_user()
         ingredient = models.Ingredient.objects.create(
             user=user,
-            name='Ingredient1',
+            name='Ingredient1'
         )
 
         self.assertEqual(str(ingredient), ingredient.name)

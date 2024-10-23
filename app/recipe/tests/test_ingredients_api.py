@@ -26,12 +26,12 @@ def detail_url(ingredient_id):
     return reverse('recipe:ingredient-detail', args=[ingredient_id])
 
 
-def create_user(email='user@example.com', password = 'testpass123'):
+def create_user(email='user@example.com', password='testpass123'):
     """Create and return user."""
     return get_user_model().objects.create_user(email=email, password=password)
 
 
-class PublickIngredientApiTests(TestCase):
+class PublicIngredientsApiTests(TestCase):
     """Test unauthenticated API requests."""
 
     def setUp(self):
@@ -44,7 +44,7 @@ class PublickIngredientApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-class PrivateIngredientApiTests(TestCase):
+class PrivateIngredientsApiTests(TestCase):
     """Test authenticated API requests."""
 
     def setUp(self):
@@ -65,7 +65,7 @@ class PrivateIngredientApiTests(TestCase):
         self.assertEqual(res.data, serializer.data)
 
     def test_ingredients_limited_to_user(self):
-        """Test list of ingredients is limited to authenticaded."""
+        """Test list of ingredients is limited to authenticated users."""
         user2 = create_user(email='user2@example.com')
         Ingredient.objects.create(user=user2, name='Salt')
         ingredient = Ingredient.objects.create(user=self.user, name='Pepper')
@@ -89,8 +89,8 @@ class PrivateIngredientApiTests(TestCase):
         ingredient.refresh_from_db()
         self.assertEqual(ingredient.name, payload['name'])
 
-    def test_delete_ingredients(self):
-        """Test deleting an ingredients."""
+    def test_delete_ingredient(self):
+        """Test deleting an ingredient."""
         ingredient = Ingredient.objects.create(user=self.user, name='Lettuce')
 
         url = detail_url(ingredient.id)
